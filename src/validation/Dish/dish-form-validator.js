@@ -11,6 +11,7 @@ export const dishFormValidationSchema = yup.object().shape({
     .string(),
   noOfSlices: yup
     .number()
+    .typeError("Number of slices should be an integer")
     .positive("Number of slices should be positive")
     .integer("Number of slices should be an integer"),
   diameter: yup
@@ -19,11 +20,13 @@ export const dishFormValidationSchema = yup.object().shape({
     .positive("Diameter value should be positive"),
   spicinessScale: yup
     .number()
-    .integer()
+    .typeError("Spiciness scale value should be a number")
+    .integer("Spiciness scale value should be an integer")
     .min(1, "Spiciness scale should be in 1-10 range")
     .max(10, "Spiciness scale should be in 1-10 range"),
   slicesOfBread: yup
     .number()
+    .typeError("Value of slices of bread should be a number")
     .min(1, "The number of slices should be bigger than 0"),
 });
 
