@@ -21,26 +21,26 @@ export const dishFormValidationSchema = yup.object().shape({
     .min(1, "The number of slices should be bigger than 0"),
 });
 
-export const validateForm = (fields) => {
-  switch (fields.dishType) {
+export const formIsValid = (fields) => {
+  switch (fields.dishType.value) {
     case "pizza":
       return dishFormValidationSchema.isValidSync({
-        dishName: fields.dishName,
-        preparationTime: fields.preparationTime,
-        noOfSlices: fields.noOfSlices,
-        diameter: fields.diameter,
+        dishName: fields.dishName.value,
+        preparationTime: fields.preparationTime.value,
+        noOfSlices: fields.noOfSlices.value,
+        diameter: fields.diameter.value,
       });
     case "soup":
       return dishFormValidationSchema.isValidSync({
-        dishName: fields.dishName,
-        preparationTime: fields.preparationTime,
-        spicinessScale: fields.spicinessScale,
+        dishName: fields.dishName.value,
+        preparationTime: fields.preparationTime.value,
+        spicinessScale: fields.spicinessScale.value,
       });
     case "sandwich":
       return dishFormValidationSchema.isValidSync({
-        dishName: fields.dishName,
-        preparationTime: fields.preparationTime,
-        slicesOfBread: fields.slicesOfBread,
+        dishName: fields.dishName.value,
+        preparationTime: fields.preparationTime.value,
+        slicesOfBread: fields.slicesOfBread.value,
       });
     default:
       return false;

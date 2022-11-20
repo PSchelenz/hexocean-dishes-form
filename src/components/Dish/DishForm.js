@@ -1,21 +1,33 @@
+import axios from "axios";
+import { useSelector } from "react-redux";
+
 import Form from "../UI/Form/Form";
 import InputField from "../UI/Form/InputField";
 import SelectField from "../UI/Form/SelectField";
 import FormHeader from "../Layout/FormHeader";
 import Button from "../UI/Button";
-import { useSelector } from "react-redux";
 import {
   dishFormValidationSchema as validatorSchema,
-  validateForm,
+  formIsValid,
 } from "../../validation/Dish/dish-form-validator";
+import { getCurrentFields } from "./actions/get-current-fields";
+
 
 import "./DishForm.css";
+
 
 const DishForm = (props) => {
   const dishFormState = useSelector((state) => state);
 
   const handleSubmit = (event) => {
     event.preventDefault();
+
+    if (formIsValid(dishFormState)) {
+      axios.post('https://frosty-wood-6558.getsandbox.com:443/dishes', getCurrentFields(dishFormState))
+        .then(res => {
+          console.log(res.data);
+        })
+    }
   };
 
   return (
