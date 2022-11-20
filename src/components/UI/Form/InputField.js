@@ -1,34 +1,36 @@
-import Label from './Label';
-import Input from './Input';
-import Error from './Error';
-import { useState } from 'react';
+import Label from "./Label";
+import Input from "./Input";
+import Error from "./Error";
 
 const InputField = (props) => {
-  const { label, input, dispatchAction } = props;
+  const { label, input, touched, validate } = props;
 
-  const [error, setError] = useState('');
+  let errorMessage = "";
 
-  const handleError = (message) => {
-    setError(message);
+  try {
+    validate(input.value);
+  } catch (error) {
+    errorMessage = error.errors;
   }
 
-  const inputClasses = error ? `${props.className ?? ''} error` : props.className ?? '';
-  const inputFieldClasses = error ? "input-field error" : "input-field";
+  const inputClasses =
+    errorMessage && touched
+      ? `${props.className ?? ""} error`
+      : props.className ?? "";
+
+  const inputFieldClasses = errorMessage && touched ? "input-field error" : "input-field";
 
   return (
     <div className={inputFieldClasses}>
       <Input
-        type={input.type}
-        id={input.id}
-        name={input.name ?? input.id}
-        value={input.value}
-        className={inputClasses}
-        dispatchAction={dispatchAction}
-        validate={input.validate}
-        handleError={handleError}
+        attributes={{
+          ...input,
+          name: input.name ?? input.id,
+          className: inputClasses,
+        }}
       />
       <Label htmlFor={input.id} text={label.text} />
-      {error && <Error message={error} />}
+      {errorMessage && touched && <Error message={errorMessage} />}
     </div>
   );
 };
