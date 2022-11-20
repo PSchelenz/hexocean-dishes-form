@@ -30,4 +30,4 @@ If it doesn't work, in the command prompt you should see on what URL the app has
 
 
 ## Work time
-About 12 hours.
+About 14 hours.
