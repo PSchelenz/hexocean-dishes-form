@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useSelector } from "react-redux";
 
+import Error from "../UI/Form/Error";
 import Form from "../UI/Form/Form";
 import InputField from "../UI/Form/InputField";
 import SelectField from "../UI/Form/SelectField";
@@ -12,21 +13,34 @@ import {
 } from "../../validation/Dish/dish-form-validator";
 import { getCurrentFields } from "./actions/get-current-fields";
 
-
 import "./DishForm.css";
-
+import { useState } from "react";
 
 const DishForm = (props) => {
   const dishFormState = useSelector((state) => state);
+
+  const [error, setError] = useState("");
+  const [buttonText, setButtonText] = useState("Submit");
 
   const handleSubmit = (event) => {
     event.preventDefault();
 
     if (formIsValid(dishFormState)) {
-      axios.post('https://frosty-wood-6558.getsandbox.com:443/dishes', getCurrentFields(dishFormState))
-        .then(res => {
+      setButtonText("Searching...");
+
+      axios
+        .post(
+          "https://frosty-wood-6558.getsandbox.com:443/dishes",
+          getCurrentFields(dishFormState)
+        )
+        .then((res) => {
           console.log(res.data);
-        })
+          props.setResponse(res.data);
+          setError("");
+          setButtonText("Submit");
+        });
+    } else {
+      setError("At least one of your fields is not valid");
     }
   };
 
@@ -51,7 +65,7 @@ const DishForm = (props) => {
           type: "time",
           id: "preparation_time",
           value: dishFormState.preparationTime.value,
-          step: "1"
+          step: "1",
         }}
         touched={dishFormState.preparationTime.touched}
         validate={(value) => {
@@ -134,7 +148,8 @@ const DishForm = (props) => {
           }}
         />
       )}
-      <Button type="submit" text="Submit" />
+      <Button type="submit" text={buttonText} />
+      {error && <Error message={error} />}
     </Form>
   );
 };
