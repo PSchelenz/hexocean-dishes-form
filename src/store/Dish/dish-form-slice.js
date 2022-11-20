@@ -1,40 +1,54 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+const getFieldStateById = (state, id) => {
+  switch(id) {
+    case "dish_name":
+      return state.dishName;
+    case "preparation_time":
+      return state.preparationTime;
+    case "dish_type":
+      return state.dishType;
+    case "no_of_slices":
+      return state.noOfSlices;
+    case "diameter":
+      return state.diameter;
+    case "spiciness_scale":
+      return state.spicinessScale;
+    case "slices_of_bread":
+      return state.slicesOfBread;
+    default:
+      return null;
+  }
+}
+
 const initialDishFormState = {
-  dishName: "",
-  preparationTime: "",
-  dishType: "",
-  noOfSlices: 0,
-  diameter: 0,
-  spicinessScale: 1,
-  slicesOfBread: 0,
+  dishName: {value: "", touched: false},
+  preparationTime: {value: "", touched: false},
+  dishType: {value: "", touched: false},
+  noOfSlices: {value: 0, touched: false},
+  diameter: {value: 0, touched: false},
+  spicinessScale: {value: 1, touched: false},
+  slicesOfBread: {value: 0, touched: false},
 };
 
 const dishFormSlice = createSlice({
   name: "dishForm",
   initialState: initialDishFormState,
   reducers: {
-    setDishName(state, action) {
-      state.dishName = action.payload;
+    setFormFieldValue(state, action) {
+      let field = getFieldStateById(state, action.payload.id);
+
+      if(field) {
+        field.value = action.payload.value;
+      }
     },
-    setPreparationTime(state, action) {
-      state.preparationTime = action.payload;
-    },
-    setDishType(state, action) {
-      state.dishType = action.payload;
-    },
-    setNoOfSlices(state, action) {
-      state.noOfSlices = action.payload;
-    },
-    setDiameter(state, action) {
-      state.diameter = action.payload;
-    },
-    setSpicinessScale(state, action) {
-      state.spicinessScale = action.payload;
-    },
-    setSlicesOfBread(state, action) {
-      state.slicesOfBread = action.payload;
-    },
+    setFormFieldTouched(state, action) {
+      let field = getFieldStateById(state, action.payload.id);
+
+      if(field) {
+        field.touched = true;
+      }
+    }
   },
 });
 

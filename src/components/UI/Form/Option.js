@@ -1,19 +1,19 @@
+import { useDispatch } from "react-redux";
+import { dishFormActions } from "../../../store/Dish/dish-form-slice";
+
 const Option = (props) => {
-  const handleClick = event => {
+  const dispatch = useDispatch();
+
+  const handleClick = (event) => {
     props.setIsActive(false);
+
     const value = event.target.dataset.value;
-    
-    try {
-      props.validate(value);
-    } catch (error) {
-      props.handleError(error.errors);
 
-      return;
-    }
-
-    props.dispatchAction(value);
-    props.handleError('');
-  }
+    dispatch(dishFormActions.setFormFieldTouched({ id: props.selectId }));
+    dispatch(
+      dishFormActions.setFormFieldValue({ id: props.selectId, value: value })
+    );
+  };
 
   return (
     <li className="option" data-value={props.value} onClick={handleClick}>

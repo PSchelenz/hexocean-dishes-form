@@ -1,32 +1,20 @@
+import { useDispatch } from "react-redux";
+import { dishFormActions } from "../../../store/Dish/dish-form-slice";
+
 const Input = (props) => {
-  const handleBlur = (event) => {
-    console.log('Blur');
-    const value = event.target.value;
+  const dispatch = useDispatch();
 
-    try {
-      props.validate(value);
-    } catch (error) {
-      props.handleError(error.errors);
-
-      return;
-    }
-
-    props.dispatchAction(value);
-    props.handleError("");
+  const handleBlur = () => {
+    dispatch(dishFormActions.setFormFieldTouched({ id: props.attributes.id }));
   };
 
-  return (
-    <input
-      type={props.type}
-      id={props.id}
-      name={props.name}
-      className={props.className}
-      defaultValue={props.value}
-      placeholder=" "
-      step={props.step}
-      onBlur={handleBlur}
-    />
-  );
+  const handleChange = (event) => {
+    const value = event.target.value;
+
+    dispatch(dishFormActions.setFormFieldValue({ id: props.attributes.id, value: value }));
+  };
+
+  return <input {...props.attributes} onChange={handleChange} onBlur={handleBlur} />;
 };
 
 export default Input;

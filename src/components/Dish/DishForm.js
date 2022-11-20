@@ -1,18 +1,18 @@
 import Form from "../UI/Form/Form";
 import InputField from "../UI/Form/InputField";
 import SelectField from "../UI/Form/SelectField";
-import TimeField from "../UI/Form/TimeField";
 import FormHeader from "../Layout/FormHeader";
 import Button from "../UI/Button";
-import { useSelector, useDispatch } from "react-redux";
-import { dishFormActions } from "../../store/Dish/dish-form-slice";
-import { dishFormValidationSchema as validatorSchema, validateForm } from "../../validation/Dish/dish-form-validator";
+import { useSelector } from "react-redux";
+import {
+  dishFormValidationSchema as validatorSchema,
+  validateForm,
+} from "../../validation/Dish/dish-form-validator";
 
 import "./DishForm.css";
 
 const DishForm = (props) => {
   const dishFormState = useSelector((state) => state);
-  const dispatch = useDispatch();
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -26,109 +26,100 @@ const DishForm = (props) => {
         input={{
           type: "text",
           id: "dish_name",
-          value: dishFormState.dishName,
-          validate: (value) => {
-            return validatorSchema.validateSync({ dishName: value });
-          },
+          value: dishFormState.dishName.value,
         }}
-        dispatchAction={(value) => dispatch(dishFormActions.setDishName(value))}
+        touched={dishFormState.dishName.touched}
+        validate={(value) => {
+          return validatorSchema.validateSync({ dishName: value });
+        }}
       />
-      <TimeField
+      <InputField
         label={{ text: "Preparation time" }}
         input={{
           type: "time",
-          id: "prep_time",
-          value: dishFormState.preparationTime,
-          validate: (value) => {
-            return validatorSchema.validateSync({ preparationTime: value });
-          },
+          id: "preparation_time",
+          value: dishFormState.preparationTime.value,
+          step: "1"
         }}
-        dispatchAction={(value) =>
-          dispatch(dishFormActions.setPreparationTime(value))
-        }
+        touched={dishFormState.preparationTime.touched}
+        validate={(value) => {
+          return validatorSchema.validateSync({ preparationTime: value });
+        }}
       />
       <SelectField
         label={{ text: "Dish type" }}
         select={{
           type: "select",
           id: "dish_type",
-          value: dishFormState.dishType,
-          validate: (value) => {
-            return validatorSchema.validateSync({ dishType: value });
-          },
+          value: dishFormState.dishType.value,
         }}
         options={[
           { value: "pizza", text: "Pizza" },
           { value: "soup", text: "Soup" },
           { value: "sandwich", text: "Sandwich" },
         ]}
-        dispatchAction={(value) => dispatch(dishFormActions.setDishType(value))}
+        touched={dishFormState.dishType.touched}
+        validate={(value) => {
+          return validatorSchema.validateSync({ dishType: value });
+        }}
       />
-      {dishFormState.dishType === "pizza" && (
+      {dishFormState.dishType.value === "pizza" && (
         <>
           <InputField
             label={{ text: "Number of slices" }}
             input={{
               type: "number",
               id: "no_of_slices",
-              value: dishFormState.noOfSlices,
-              validate: (value) => {
-                return validatorSchema.validateSync({ noOfSlices: value });
-              },
+              value: dishFormState.noOfSlices.value,
             }}
-            dispatchAction={(value) =>
-              dispatch(dishFormActions.setNoOfSlices(value))
-            }
+            touched={dishFormState.noOfSlices.touched}
+            validate={(value) => {
+              return validatorSchema.validateSync({ noOfSlices: value });
+            }}
           />
           <InputField
             label={{ text: "Diameter" }}
             input={{
               type: "number",
               id: "diameter",
-              value: dishFormState.diameter,
+              value: dishFormState.diameter.value,
               step: "0.01",
-              validate: (value) => {
-                return validatorSchema.validateSync({ diameter: value });
-              },
             }}
-            dispatchAction={(value) =>
-              dispatch(dishFormActions.setDiameter(value))
-            }
+            touched={dishFormState.diameter.touched}
+            validate={(value) => {
+              return validatorSchema.validateSync({ diameter: value });
+            }}
           />
         </>
       )}
-      {dishFormState.dishType === "soup" && (
+      {dishFormState.dishType.value === "soup" && (
         <InputField
           label={{ text: "Spiciness Scale" }}
           input={{
             type: "number",
             id: "spiciness_scale",
-            value: dishFormState.spicinessScale,
+            value: dishFormState.spicinessScale.value,
             min: "1",
             max: "10",
-            validate: (value) => {
-              return validatorSchema.validateSync({ spicinessScale: value });
-            },
           }}
-          dispatchAction={(value) =>
-            dispatch(dishFormActions.setSpicinessScale(value))
-          }
+          touched={dishFormState.spicinessScale.touched}
+          validate={(value) => {
+            return validatorSchema.validateSync({ spicinessScale: value });
+          }}
         />
       )}
-      {dishFormState.dishType === "sandwich" && (
+      {dishFormState.dishType.value === "sandwich" && (
         <InputField
           label={{ text: "Slices of bread" }}
           input={{
             type: "number",
             id: "slices_of_bread",
-            value: dishFormState.slicesOfBread,
-            validate: (value) => {
-              return validatorSchema.validateSync({ slicesOfBread: value });
-            },
+            value: dishFormState.slicesOfBread.value,
           }}
-          dispatchAction={(value) =>
-            dispatch(dishFormActions.setSlicesOfBread(value))
-          }
+          touched={dishFormState.slicesOfBread.touched}
+          validate={(value) => {
+            return validatorSchema.validateSync({ slicesOfBread: value });
+          }}
         />
       )}
       <Button type="submit" text="Submit" />
