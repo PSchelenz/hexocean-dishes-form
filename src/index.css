@@ -2,9 +2,9 @@
 
 :root {
   --honeydew: #E1EFE6;
-  --orange-yellow-crayola: #EFCB68;
+  --deep-saffron: #FF9B42;
   --dark-purple: #1f4354;
-  --primary: var(--orange-yellow-crayola);
+  --primary: var(--deep-saffron);
   --secondary: var(--dark-purple);
   --background: var(--honeydew);
 }

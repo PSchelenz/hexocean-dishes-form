@@ -1,9 +1,6 @@
 .dish-form {
   font-family: 'DM Sans', sans-serif;
   padding: 20px 40px;
-  position: absolute;
-  top: 50%;
-  left: 50%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -11,7 +8,6 @@
   max-width: 600px;
   border-radius: 12px;
   box-shadow: 0 0 8px rgba(0, 0, 0, 0.25);
-  transform: translate(-50%, -50%);
 }
 
 .dish-form .form-header {
@@ -88,6 +84,7 @@
 
 .dish-form .select-field .select {
   padding: 12px 10px;
+  font-size: 14px;
   border: 1px solid #AAA;
   border-radius: 6px;
   min-width: 300px;
@@ -154,7 +151,7 @@
 }
 
 .dish-form button[type="submit"] {
-  background-color: #FF9B42;
+  background-color: var(--primary);
   font-size: 16px;
   border: none;
   color: white;

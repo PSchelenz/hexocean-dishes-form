@@ -1,6 +1,6 @@
 .body {
   width: 100vw;
   height: 100vh;
-  background: url('/table-top-with-background.jpg') no-repeat;
+  background: url('/public/table-top-with-background.jpg') no-repeat;
   background-size: 100% 100%;
 }

@@ -1,16 +1,22 @@
 import * as yup from "yup";
 
 export const dishFormValidationSchema = yup.object().shape({
-  dishName: yup.string().min(1, "Dish name cannot be empty"),
+  dishName: yup
+    .string()
+    .min(1, "Dish name cannot be empty"),
   preparationTime: yup
     .string()
     .matches(/^[0-9]{2}:[0-9]{2}:[0-9]{2}$/, "Time format should be HH:MM:SS"),
-  dishType: yup.string(),
+  dishType: yup
+    .string(),
   noOfSlices: yup
     .number()
     .positive("Number of slices should be positive")
     .integer("Number of slices should be an integer"),
-  diameter: yup.number().positive("Diameter value should be positive"),
+  diameter: yup
+    .number()
+    .typeError("Diameter value should be a number")
+    .positive("Diameter value should be positive"),
   spicinessScale: yup
     .number()
     .integer()
