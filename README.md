@@ -2,7 +2,7 @@
 
 A simple form made for sending requests.
 
-## App instalation
+## Application setup
 The app was created and run using:
 1) npm - version **8.13.2**
 2) Node - version **16.14.2**
@@ -31,3 +31,6 @@ If it doesn't work, in the command prompt you should see on what URL the app has
 
 ## Work time
 About 14 hours.
+
+## Link to the github repo:
+https://github.com/PSchelenz/hexocean-dishes-form
