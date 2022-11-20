@@ -1,10 +1,13 @@
-import './App.css';
+import Body from "./components/Layout/Body";
+
+import "./App.css";
+import DishForm from "./components/Dish/DishForm";
 
 function App() {
   return (
-    <div className="App">
-      
-    </div>
+    <Body>
+      <DishForm />
+    </Body>
   );
 }
 
